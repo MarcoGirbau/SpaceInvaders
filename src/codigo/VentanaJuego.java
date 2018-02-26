@@ -27,6 +27,8 @@ public class VentanaJuego extends javax.swing.JFrame {
     int contador = 0;
     Nave miNave = new Nave(ANCHOPANTALLA);
     Disparo miDisparo = new Disparo(ALTOPANTALLA);
+    Marciano miMarciano = new Marciano(ANCHOPANTALLA);
+    
     //bucle de animacion del juego ,en este caso, es un hilo de ejecucion
     //nuevo que se encarga de refrescar el contenido de la pantalla
     Timer temporizador = new Timer(10, new ActionListener() 
@@ -49,6 +51,9 @@ public class VentanaJuego extends javax.swing.JFrame {
         buffer.createGraphics();
         miNave.x = ANCHOPANTALLA/2 - miNave.imagen.getWidth(this)/2;
         miNave.y = ALTOPANTALLA - miNave.imagen.getHeight(this) - 40;
+        
+        miMarciano.x = 10;
+        miMarciano.y = 10;
         //Inicio el temporizador
         temporizador.start();
     }
@@ -64,9 +69,28 @@ public class VentanaJuego extends javax.swing.JFrame {
         
         /////////////////////////////////////////////////////
         ///Redibujamos cada elemento en su nueva posiscion///
-        //contador++;
+        
+        contador++;
+        miMarciano.mueve();
+        if(contador < 50)
+        {
+            g2.drawImage(miMarciano.imagen,miMarciano.x , miMarciano.y, null);
+        }
+        else if(contador < 100)
+        {
+            g2.drawImage(miMarciano.imagen2,miMarciano.x , miMarciano.y, null);
+        }
+        else contador = 0;
+        
+        if(miMarciano.x == ANCHOPANTALLA - miMarciano.imagen.getWidth(null) || miMarciano.x == 0)
+        {
+            miMarciano.direccion = !miMarciano.direccion;
+            miMarciano.y += miMarciano.imagen.getHeight(null);
+        }
+        
         miDisparo.mueve();
         g2.drawImage(miDisparo.imagen, miDisparo.getX(), miDisparo.getY(), null);
+        
         //System.out.println(contador);
         miNave.mueve();
         g2.drawImage(miNave.imagen, miNave.x, miNave.y, null);

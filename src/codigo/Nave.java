@@ -50,19 +50,11 @@ public class Nave
     {
         if(pulsadoIzquierda && x > 0)
         {
-            x--;
-            x--;
-            x--;
-            x--;
-            x--;
+            x = x - 5;
         }
         if(pulsadoDerecha && x < anchoPantalla - imagen.getWidth(null))
         {
-            x++;
-            x++;
-            x++;
-            x++;
-            x++;
+            x = x + 5;
         }
     }
 }
