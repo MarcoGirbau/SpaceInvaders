@@ -33,7 +33,7 @@ public class Disparo
     {
         if(y > 0)
         {
-            y = y - 5;
+            y = y - 10;
         }
     }
     public void posicionaDisparo (Nave _nave)

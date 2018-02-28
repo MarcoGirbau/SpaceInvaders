@@ -18,24 +18,25 @@ public class Marciano
     public int y = 0;
     
     private int anchoPantalla;
-    public boolean direccion = false; //Si es false es que se mueve a la izquierda
-
+    
+    public boolean vida = true;
+    
     public Marciano(int _anchoPantalla)
     {
-        try
-        {
-            imagen = ImageIO.read(getClass().getResource("/imagenes/marcianito1.png"));
-            imagen2 = ImageIO.read(getClass().getResource("/imagenes/marcianito2.png"));
-        }
-        catch(IOException ramonaLaPechugona){}
+//        try
+//        {
+//            imagen = ImageIO.read(getClass().getResource("/imagenes/marcianito1.png"));
+//            imagen2 = ImageIO.read(getClass().getResource("/imagenes/marcianito2.png"));
+//        }
+//        catch(IOException ramonaLaPechugona){}
         anchoPantalla = _anchoPantalla;
     }
     
-    public void mueve()
+    public void mueve(boolean direccion)
     {
         if(direccion)
         {
-           if(x < anchoPantalla - imagen.getWidth(null) && direccion)
+           if(x < anchoPantalla - imagen.getWidth(null))
             {
                 x++;
             } 
