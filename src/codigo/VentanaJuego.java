@@ -43,7 +43,7 @@ public class VentanaJuego extends javax.swing.JFrame {
     boolean direccionMarcianos = false;
     
     BufferedImage plantilla = null;
-    BufferedImage[] imagenes = new BufferedImage[30];
+    Image[] imagenes = new Image[30];
     
     //bucle de animacion del juego ,en este caso, es un hilo de ejecucion
     //nuevo que se encarga de refrescar el contenido de la pantalla
@@ -61,25 +61,33 @@ public class VentanaJuego extends javax.swing.JFrame {
      */
     public VentanaJuego() {
         initComponents();
-        
+        //Cargo plantilla con todos los sprites de marcianos
         try
         {
             plantilla = ImageIO.read(getClass().getResource("/imagenes/invaders2.png"));
         }
         catch (IOException e){}
         
-        for(int i = 0; i < 6; i++)
+        //Guardo cada sprite en una Image unica, ya que sera mas facil dibujarlos
+        for(int i = 0; i < 5; i++)
         {
-            for(int j = 0; j < 5; j++)
+            for(int j = 0; j < 4; j++)
             {
-                imagenes[i*5 + j] = plantilla.getSubimage(j*32, i*32, 32, 32);
+                //Corto el trozo de 64x64 correspondiente a ese marciano
+                imagenes[i*4 + j] = plantilla.getSubimage(j*64, i*64, 64, 64);
+                //redimensionas las imagenes al tamaño que deseamos y con el smooth no se pixela mucho(32x32)
+                imagenes[i*4 + j] = imagenes[i*4 + j].getScaledInstance(32, 32, Image.SCALE_SMOOTH);
             }
         }
+        imagenes[20] = plantilla.getSubimage(0, 320, 66, 32);
+        imagenes[21] = plantilla.getSubimage(66, 320, 64, 32);
+        //imagenes[21] = imagenes[21].getScaledInstance(64, 32, Image.SCALE_SMOOTH); Rescalado de imagen (Al mismo tamaño)
         
         //hay que quitar la opcion "resizable" del jpanel para que se ajuste
         setSize(ANCHOPANTALLA , ALTOPANTALLA);
         buffer = (BufferedImage)jPanel1.createImage(ANCHOPANTALLA,ALTOPANTALLA);
         buffer.createGraphics();
+        miNave.imagen = imagenes[21];
         miNave.x = ANCHOPANTALLA/2 - miNave.imagen.getWidth(this)/2;
         miNave.y = ALTOPANTALLA - miNave.imagen.getHeight(this) - 40;
         
@@ -89,12 +97,13 @@ public class VentanaJuego extends javax.swing.JFrame {
             for(int j = 0; j < columnasMarcianos; j++)
             {
                 listaMarcianos[i][j] = new Marciano(ANCHOPANTALLA);
-                listaMarcianos[i][j].imagen = imagenes[2];
-                listaMarcianos[i][j].imagen2 = imagenes[3];
+                listaMarcianos[i][j].imagen = imagenes[2*i];
+                listaMarcianos[i][j].imagen2 = imagenes[2*i+1];
                 listaMarcianos[i][j].x = j* ( 15 + listaMarcianos[i][j].imagen.getWidth(null)) +1;
                 listaMarcianos[i][j].y = i* ( 10 + listaMarcianos[i][j].imagen.getHeight(null)) +1;
             }
         }
+        
         //Inicio el temporizador
         temporizador.start();
     }
@@ -152,7 +161,7 @@ public class VentanaJuego extends javax.swing.JFrame {
                     {
                         //Si da true es que los dos rectangulos han chocado en algun punto
                         listaMarcianos[i][j].vida = false;
-                        miDisparo.setY(2000);
+                        miDisparo.setY(-2000);
                         miDisparo.setDisparado(false);
                     }
                 }

@@ -38,11 +38,11 @@ public class Nave
 
     public Nave(int _anchoPantalla)
     {
-        try
-        {
-            imagen = ImageIO.read(getClass().getResource("/imagenes/nave.png"));
-        }
-        catch(IOException ramonaLaPechugona){}
+//        try
+//        {
+//            imagen = ImageIO.read(getClass().getResource("/imagenes/nave.png"));
+//        }
+//        catch(IOException ramonaLaPechugona){}
         anchoPantalla = _anchoPantalla;
     }
     
