@@ -77,7 +77,7 @@ public class VentanaJuego extends javax.swing.JFrame {
         }
         
         //hay que quitar la opcion "resizable" del jpanel para que se ajuste
-        setSize(ANCHOPANTALLA, ALTOPANTALLA);
+        setSize(ANCHOPANTALLA , ALTOPANTALLA);
         buffer = (BufferedImage)jPanel1.createImage(ANCHOPANTALLA,ALTOPANTALLA);
         buffer.createGraphics();
         miNave.x = ANCHOPANTALLA/2 - miNave.imagen.getWidth(this)/2;
@@ -91,8 +91,8 @@ public class VentanaJuego extends javax.swing.JFrame {
                 listaMarcianos[i][j] = new Marciano(ANCHOPANTALLA);
                 listaMarcianos[i][j].imagen = imagenes[2];
                 listaMarcianos[i][j].imagen2 = imagenes[3];
-                listaMarcianos[i][j].x = j* ( 15 + listaMarcianos[i][j].imagen.getWidth(null));
-                listaMarcianos[i][j].y = i* ( 10 + listaMarcianos[i][j].imagen.getHeight(null));
+                listaMarcianos[i][j].x = j* ( 15 + listaMarcianos[i][j].imagen.getWidth(null)) +1;
+                listaMarcianos[i][j].y = i* ( 10 + listaMarcianos[i][j].imagen.getHeight(null)) +1;
             }
         }
         //Inicio el temporizador
@@ -124,7 +124,7 @@ public class VentanaJuego extends javax.swing.JFrame {
                         {
                             for(int m = 0; m < columnasMarcianos; m++)
                             {
-                                listaMarcianos[k][m].y += listaMarcianos[i][j].imagen.getHeight(null);
+                                listaMarcianos[k][m].y += listaMarcianos[k][m].imagen.getHeight(null);
                             }
                         }
                     }
